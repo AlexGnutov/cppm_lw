@@ -6,26 +6,26 @@
 #include "kentavr.h"
 #include "offroad_shoes.h"
 
-GroundRace::GroundRace():Race("Наземная гонка")
+GroundRace::GroundRace() :Race("Наземная гонка")
 {
-	num_of_races = 4;
-	
-	racers = new Vehicle*[4];
+	num_of_racers = 4;
+
+	racers = new Vehicle * [4];
 	racers[0] = new Camel();
 	racers[1] = new SuperCamel();
 	racers[2] = new Kentavr();
 	racers[3] = new OffroadShoes();
 
-  set_flags = new int[4]{0,0,0,0};
+	set_flags = new int[4] {0, 0, 0, 0};
 };
 
 GroundRace::~GroundRace()
 {
-  delete racers[0];
-  delete racers[1];
-  delete racers[2];
-  delete racers[3];
-  delete racers;
+	delete racers[0];
+	delete racers[1];
+	delete racers[2];
+	delete racers[3];
+	delete racers;
 
-  delete set_flags;
+	delete set_flags;
 };
