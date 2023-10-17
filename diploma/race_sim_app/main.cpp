@@ -2,13 +2,10 @@
 #include <string>
 #include <sstream>
 
-#include <io.h>
-#include <fcntl.h>
-
-#include "race.h"
-#include "air_race.h"
-#include "ground_race.h"
-#include "combined_race.h"
+#include "race_sim_lib/race.h"
+#include "race_sim_lib/air_race.h"
+#include "race_sim_lib/ground_race.h"
+#include "race_sim_lib/combined_race.h"
 
 
 enum class RaceType {
@@ -61,6 +58,7 @@ Race* race_factory(RaceType race_type)
 		return new CombinedRace();
 	}
 	}
+    return nullptr;
 }
 
 int main()
@@ -75,8 +73,6 @@ int main()
 
 	while (true) {
 
-
-
 		// Выбор гонки
 		std::cout << get_race_selection();
 		int value; std::cin >> value;
@@ -88,6 +84,10 @@ int main()
 		std::cout << std::endl;
 
 		Race* race = race_factory(race_type);
+        if (race == nullptr) {
+            std::cout << "Непредвиденная ошибка" << std::endl;
+            return 1;
+        }
 		race->set_distance(race_distance);
 
 		while (true) {
@@ -158,8 +158,5 @@ int main()
 		break;
 	}
 
-	system("pause");
-
 	return 0;
-
 }

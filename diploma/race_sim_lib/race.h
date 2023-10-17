@@ -1,7 +1,16 @@
 #pragma once
 
-#include <string>
+#ifdef _WIN32
+# ifdef LIBRARY_EXPORTS
+#   define LIBRARY_API  __declspec( dllexport )
+# else
+#   define LIBRARY_API  __declspec( dllimport )
+# endif
+#else
+# define LIBRARY_API
+#endif
 
+#include <string>
 #include "enums.h"
 #include "vehicle.h"
 #include "vehicle_collection.h"
@@ -9,25 +18,25 @@
 //! Класс Гонка - базовый класс для гонок конкретных типов.
 class Race {
 public:
-	Race(std::string name) :name(name) {}
+    LIBRARY_API Race(std::string name) :name(name) {}
 
 	//! Возвразщает список доступных к выбору участников. 
-	std::string get_racers_selection();
+    LIBRARY_API std::string get_racers_selection();
 
 	//! Возвращает информацию о гонке.
-	std::string get_race_info();
+    LIBRARY_API std::string get_race_info();
 
 	//! Устанавливает дистацию гонки.
-	void set_distance(double value);
+    LIBRARY_API void set_distance(double value);
 
 	//! Отмечает тип ТС к участию.
-	bool set_racer(int index);
+    LIBRARY_API bool set_racer(int index);
 
 	//! Проверяет, можно ли стартовать.
-	bool is_ready();
+    LIBRARY_API bool is_ready();
 
 	//! Запускает гонку и возвращает результат.
-	std::string run();
+    LIBRARY_API std::string run();
 
 	std::string name;		///< Название гонки.
 	double distance = 0;	///< Дистанция.
